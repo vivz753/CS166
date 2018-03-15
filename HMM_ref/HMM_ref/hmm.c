@@ -21,7 +21,7 @@
 #include "hmm.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
+#include<unistd.h>
 
 int main(int argc, const char *argv[])
 {
@@ -117,7 +117,7 @@ oops:   fprintf(stderr, "\nUsage: %s filename startPos startChar maxChars maxIte
     // hidden markov model //
     /////////////////////////
 
-    srandom(seed);
+    srand(seed);
     
     // initialize pi[], A[][] and B[][]
     initMatrices(pi, A, B, seed);
@@ -519,7 +519,7 @@ void initMatrices(double pi[],
            ftemp2;
     
     // initialize pseudo-random number generator
-    srandom(seed);
+    srand(seed);
 
     // initialize pi
     prob = 1.0 / (double)N;
@@ -527,13 +527,13 @@ void initMatrices(double pi[],
     ftemp2 = 0.0;
     for(i = 0; i < N; ++i)
     {
-        if((srandom() & 0x1) == 0)
+        if((random() & 0x1) == 0)
         {
-            pi[i] = prob + (double)(srandom() & 0x7) / 8.0 * ftemp;
+            pi[i] = prob + (double)(random() & 0x7) / 8.0 * ftemp;
         }
         else
         {
-            pi[i] = prob - (double)(srandom() & 0x7) / 8.0 * ftemp;
+            pi[i] = prob - (double)(random() & 0x7) / 8.0 * ftemp;
         }
         ftemp2 += pi[i];
         
@@ -552,13 +552,13 @@ void initMatrices(double pi[],
         ftemp2 = 0.0;
         for(j = 0; j < N; ++j)
         {
-            if((srandom() & 0x1) == 0)
+            if((random() & 0x1) == 0)
             {
-                A[i][j] = prob + (double)(srandom() & 0x7) / 8.0 * ftemp;
+                A[i][j] = prob + (double)(random() & 0x7) / 8.0 * ftemp;
             }
             else
             {
-                A[i][j] = prob - (double)(srandom() & 0x7) / 8.0 * ftemp;
+                A[i][j] = prob - (double)(random() & 0x7) / 8.0 * ftemp;
             }
             ftemp2 += A[i][j];
             
@@ -584,13 +584,13 @@ void initMatrices(double pi[],
         ftemp2 = 0.0;
         for(j = 0; j < M; ++j)
         {
-            if((srandom() & 0x1) == 0)
+            if((random() & 0x1) == 0)
             {
-                B[i][j] = prob + (double)(srandom() & 0x7) / 8.0 * ftemp;
+                B[i][j] = prob + (double)(random() & 0x7) / 8.0 * ftemp;
             }
             else
             {
-                B[i][j] = prob - (double)(srandom() & 0x7) / 8.0 * ftemp;
+                B[i][j] = prob - (double)(random() & 0x7) / 8.0 * ftemp;
             }
             ftemp2 += B[i][j];
             
